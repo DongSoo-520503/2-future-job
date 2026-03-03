@@ -436,20 +436,12 @@
       background: linear-gradient(90deg, transparent, #c4b5fd, #93c5fd, transparent);
       margin: 0 0 22px;
     }
-    pre {
-      white-space: pre-wrap;
-      line-height: 2;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 14px;
-      color: #2d2250;
-    }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="title-box"><h2>🌏 진단 결과</h2></div>
-  <div class="divider"></div>
-  <pre>${data.text}</pre>
+  <div class="title-box"><h2>🌏 미래직업 추천결과</h2></div>
+  <div>${data.text}</div>
   <div class="divider" style="margin-top:22px;"></div>
   ${data.buttons}
 </div>
