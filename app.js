@@ -126,7 +126,7 @@ app.post('/recommend', (req, res) => {
 
 2. 매칭 분석
 
-조건 필터링: 국가, 시기, 등급 데이터를 기반으로 1차 후보군 ${candidateCount}개를 추출하였습니다.
+조건 필터링: 국가, 시기, 직업등급 데이터를 기반으로 1차 후보군 ${candidateCount}개를 추출하였습니다.
 성향 점수화: 직업흥미유형(RIASEC) 적합도 ${best.riasec_score.toFixed(1)}점, 개인성향(Big5) 적합도 ${best.big5_score.toFixed(1)}점을 60:40 가중평균하여 최종 적합도 ${best.final_score}점을 산출하였습니다.
 최종 선택: 적합도 점수와 연봉순위를 종합하여 최적의 직업 1종을 선정하였습니다.${zeroScoreNote}`;
 
