@@ -54,16 +54,25 @@ function calcScore(desc, keywords) {
 app.post('/recommend', (req, res) => {
   const { name, dob, country, ability, riasec, big5 } = req.body;
 
-  const birthYear = parseInt((dob || '').substring(0, 4), 10);
+  const birthYear = parseInt(dob, 10);
   if (Number.isNaN(birthYear) || birthYear < 1900 || birthYear > 2100) {
     return res.status(400).json({
-      error: '생년월일 형식이 올바르지 않습니다. 예) 2010-03-15 형식으로 입력해 주세요.'
+      error: '출생연도 형식이 올바르지 않습니다. 예) 2010 형식으로 입력해 주세요.'
     });
   }
 
-  const year = birthYear + 25;
-  const period = `${Math.floor(year / 10) * 10}년대`;
+  let addYear;
 
+  if (ability === '상') {
+    addYear = 30;
+  } else if (ability === '중') {
+    addYear = 26;
+  } else {
+    addYear = 22; // '하'
+  }
+
+  const year = birthYear + addYear;
+  const period = `${Math.floor(year / 10) * 10}년대`;
   const candidates = jobData.filter(
     row => row['국가'] === country && row['시기'] === period && row['직업등급'] === ability
   );
