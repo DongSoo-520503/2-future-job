@@ -80,7 +80,7 @@ app.post('/recommend', (req, res) => {
 
   if (candidateCount === 0) {
     return res.status(404).json({
-      error: `'${period}' 데이터가 없습니다. 지원 생년월일: 2005년~2034년생 (취업시기 2030~2050년대)`
+      error: ` '${period}' 취업시기의 데이터는 없습니다. [생년월일]을 2000년~2029년 범위내로 (취업시기 2030~2050년대) 수정 입력하세요. `
     });
   }
 
