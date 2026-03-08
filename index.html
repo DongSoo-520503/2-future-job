@@ -1,221 +1,125 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>미래 직업 추천</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-
-html, body{
-margin:0;
-padding:0;
-width:100%;
-height:100%;
-overflow:hidden;
-}
-
-body{
--webkit-text-size-adjust:100%;
-}
-
-.page{
-width:100%;
-height:100dvh;
-display:flex;
-justify-content:center;
-align-items:stretch;
-padding:6px 10px;
-box-sizing:border-box;
-}
-
-.card.form-card{
-width:100%;
-max-width:420px;
-height:100%;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-padding:14px 14px 16px;
-box-sizing:border-box;
-border-radius:16px;
-}
-
-.page-title{
-text-align:center;
-font-size:1.2rem;
-font-weight:800;
-margin-bottom:10px;
-}
-
-.form-grid{
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-}
-
-.field{
-display:flex;
-flex-direction:column;
-gap:4px;
-}
-
-.field label{
-font-size:0.9rem;
-font-weight:700;
-}
-
-input,select{
-height:46px;
-padding:8px 12px;
-font-size:15px;
-border-radius:10px;
-box-sizing:border-box;
-}
-
-.primary-btn{
-height:48px;
-margin-top:10px;
-font-size:16px;
-font-weight:700;
-border-radius:12px;
-}
-
-.form-message{
-font-size:0.8rem;
-margin-top:6px;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미래 직업 추천</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div class="page">
+    <div class="card form-card">
 
-<div class="page">
-<div class="card form-card">
+      <h1 class="page-title center-title">미래 직업 추천</h1>
 
-<h1 class="page-title">미래 직업 추천</h1>
+      <form id="jobForm" class="form-grid">
+        <div class="field">
+          <label for="name">성명</label>
+          <input id="name" name="name" type="text" placeholder="성명을 입력하세요" required>
+        </div>
 
-<form id="jobForm" class="form-grid">
+        <div class="field">
+          <label for="dob">출생연도</label>
+          <input id="dob" name="dob" type="number" inputmode="numeric" placeholder="예: 2001" required>
+        </div>
 
-<div class="field">
-<label for="name">성명</label>
-<input id="name" name="name" type="text" placeholder="성명을 입력하세요" required>
-</div>
+        <div class="field">
+          <label for="country">국가</label>
+          <select id="country" name="country">
+                    <option value="대한민국">대한민국</option>
+                    <option value="미국">미국</option>
+                    <option value="중국">중국</option>
+                    <option value="일본">일본</option>
+                    <option value="러시아">러시아</option>
+                    <option value="인도">인도</option>
+                    <option value="독일">독일</option>
+                    <option value="영국">영국</option>
+                    <option value="프랑스">프랑스</option>
+                    <option value="이탈리아">이탈리아</option>
+                    <option value="캐나다">캐나다</option>
+                    <option value="호주">호주</option>
+                    <option value="멕시코">멕시코</option>
+                    <option value="베트남">베트남</option>
+                    <option value="브라질">브라질</option>
+                    <option value="사우디아라비아">사우디아라비아</option>
+                    <option value="스위스">스위스</option>
+                    <option value="싱가포르">싱가포르</option>
+                    <option value="이스라엘">이스라엘</option>
+                    <option value="인도네시아">인도네시아</option>
+                    <option value="나이지리아">나이지리아</option>
+                    <option value="남아프리카공화국">남아프리카공화국</option>
+          </select>
+        </div>
 
-<div class="field">
-<label for="dob">출생연도</label>
-<input id="dob" name="dob" type="number" inputmode="numeric" placeholder="예: 2001" required>
-</div>
+        <div class="field">
+          <label for="ability">학업 계획</label>
+          <select id="ability" name="ability">
+            <option value="상">석박사 이상 예정</option>
+            <option value="중">대학/대학원 예정</option>
+            <option value="하">전문대/직업고 예정</option>
+          </select>
+        </div>
 
-<div class="field">
-<label for="country">국가</label>
-<select id="country" name="country">
-<option value="대한민국">대한민국</option>
-<option value="미국">미국</option>
-<option value="중국">중국</option>
-<option value="일본">일본</option>
-<option value="러시아">러시아</option>
-<option value="인도">인도</option>
-<option value="독일">독일</option>
-<option value="영국">영국</option>
-<option value="프랑스">프랑스</option>
-<option value="이탈리아">이탈리아</option>
-<option value="캐나다">캐나다</option>
-<option value="호주">호주</option>
-<option value="멕시코">멕시코</option>
-<option value="베트남">베트남</option>
-<option value="브라질">브라질</option>
-<option value="사우디아라비아">사우디아라비아</option>
-<option value="스위스">스위스</option>
-<option value="싱가포르">싱가포르</option>
-<option value="이스라엘">이스라엘</option>
-<option value="인도네시아">인도네시아</option>
-<option value="나이지리아">나이지리아</option>
-<option value="남아프리카공화국">남아프리카공화국</option>
-</select>
-</div>
+        <div class="field">
+          <label for="riasec">직업 흥미 유형</label>
+          <select id="riasec" name="riasec">
+                    <option value="R">만들고 조작하는 걸 좋아해요—기계·컴퓨터·도구를 직접 다루거나 만드는 것이 재미있는 편이에요</option>
+                    <option value="I"> 파고들고 연구하는 걸 좋아해요—왜 그런지 원리를 찾고, 데이터나 과학적 사실을 탐구하는 편이에요</option>
+                    <option value="A">만들고 표현하는 걸 좋아해요—그림·영상·디자인·글쓰기 등 새로운 것을 창작하는 편이에요</option>
+                    <option value="S">돕고 함께하는 걸 좋아해요—사람들과 어울리고 돌보고 가르치는 일이 보람 있는 편이에요</option>
+                    <option value="E">이끌고 도전하는 걸 좋아해요—목표를 세우고 사람들을 설득하거나 이끄는 것이 잘 맞는 편이에요</option>
+                    <option value="C">정리하고 꼼꼼히 관리하는 걸 좋아해요—규칙에 따라 정확하게 기록하고 체계적으로 일하는 편이에요</option>
+          </select>
+        </div>
 
-<div class="field">
-<label for="ability">학업 계획</label>
-<select id="ability" name="ability">
-<option value="상">석박사 이상 예정</option>
-<option value="중">대학/대학원 예정</option>
-<option value="하">전문대/직업고 예정</option>
-</select>
-</div>
+        <div class="field">
+          <label for="big5">성격 유형</label>
+          <select id="big5" name="big5">
+                    <option value="O">새로운 것에 호기심이 많아요—새 아이디어나 변화를 즐기고 상상력이 풍부한 편이에요</option>
+                    <option value="C">계획적이고 꼼꼼한 편이에요—목표를 세우고 끝까지 책임감 있게 해내는 편이에요</option>
+                    <option value="E">사람들과 어울리는 걸 좋아해요—여럿이 함께하는 환경에서 활발하게 활동하는 편이에요</option>
+                    <option value="A">배려심이 많고 협조적이에요—다른 사람을 믿고 돕는 것이 자연스러운 편이에요</option>
+                    <option value="N">안전과 위험에 민감한 편이에요—작은 위험도 미리 감지하고 대비하려는 신중한 편이에요</option>
+          </select>
+        </div>
 
-<div class="field">
-<label for="riasec">직업 흥미 유형</label>
-<select id="riasec" name="riasec">
-<option value="R">만들고 조작하는 걸 좋아해요—기계·컴퓨터·도구를 직접 다루거나 만드는 것이 재미있는 편이에요</option>
-<option value="I">파고들고 연구하는 걸 좋아해요—왜 그런지 원리를 찾고, 데이터나 과학적 사실을 탐구하는 편이에요</option>
-<option value="A">만들고 표현하는 걸 좋아해요—그림·영상·디자인·글쓰기 등 새로운 것을 창작하는 편이에요</option>
-<option value="S">돕고 함께하는 걸 좋아해요—사람들과 어울리고 돌보고 가르치는 일이 보람 있는 편이에요</option>
-<option value="E">이끌고 도전하는 걸 좋아해요—목표를 세우고 사람들을 설득하거나 이끄는 것이 잘 맞는 편이에요</option>
-<option value="C">정리하고 꼼꼼히 관리하는 걸 좋아해요—규칙에 따라 정확하게 기록하고 체계적으로 일하는 편이에요</option>
-</select>
-</div>
+        <button type="submit" class="primary-btn">추천 보기</button>
+      </form>
 
-<div class="field">
-<label for="big5">성격 유형</label>
-<select id="big5" name="big5">
-<option value="O">새로운 것에 호기심이 많아요—새 아이디어나 변화를 즐기고 상상력이 풍부한 편이에요</option>
-<option value="C">계획적이고 꼼꼼한 편이에요—목표를 세우고 끝까지 책임감 있게 해내는 편이에요</option>
-<option value="E">사람들과 어울리는 걸 좋아해요—여럿이 함께하는 환경에서 활발하게 활동하는 편이에요</option>
-<option value="A">배려심이 많고 협조적이에요—다른 사람을 믿고 돕는 것이 자연스러운 편이에요</option>
-<option value="N">안전과 위험에 민감한 편이에요—작은 위험도 미리 감지하고 대비하려는 신중한 편이에요</option>
-</select>
-</div>
+      <p id="formMessage" class="form-message"></p>
+    </div>
+  </div>
 
-<button type="submit" class="primary-btn">추천 보기</button>
+  <script>
+    document.getElementById('jobForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-</form>
+      const formMessage = document.getElementById('formMessage');
+      formMessage.textContent = '';
 
-<p id="formMessage" class="form-message"></p>
+      const formData = new FormData(e.target);
+      const payload = Object.fromEntries(formData.entries());
 
-</div>
-</div>
+      try {
+        const res = await fetch('/recommend', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
-<script>
+        const result = await res.json();
 
-document.getElementById('jobForm').addEventListener('submit', async (e)=>{
+        if (!res.ok) {
+          formMessage.textContent = result.error || '오류가 발생했습니다.';
+          return;
+        }
 
-e.preventDefault();
-
-const formMessage=document.getElementById('formMessage');
-formMessage.textContent='';
-
-const formData=new FormData(e.target);
-const payload=Object.fromEntries(formData.entries());
-
-try{
-
-const res=await fetch('/recommend',{
-method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify(payload)
-});
-
-const result=await res.json();
-
-if(!res.ok){
-formMessage.textContent=result.error||'오류가 발생했습니다.';
-return;
-}
-
-localStorage.setItem('jobResult',JSON.stringify(result));
-window.location.href='result.html';
-
-}catch(error){
-formMessage.textContent='서버 연결 중 오류가 발생했습니다.';
-}
-
-});
-
-</script>
-
+        localStorage.setItem('jobResult', JSON.stringify(result));
+        window.location.href = 'result.html';
+      } catch (error) {
+        formMessage.textContent = '서버 연결 중 오류가 발생했습니다.';
+      }
+    });
+  </script>
 </body>
 </html>
