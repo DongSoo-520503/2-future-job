@@ -10,19 +10,6 @@ const jobData = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'future_job_3960.json'), 'utf8')
 );
 
-// ══════════════════════════════════════════════════════════════
-// 방법 1 적용: RIASEC ↔ Big5 간 불필요한 중복 키워드 선별 제거
-//
-// 제거한 중복 4개:
-//   '글로벌'   → RIASEC E에서 제거 (Big5 E에만 유지)
-//   '프로세스' → Big5 C에서 제거  (RIASEC C에만 유지)
-//   '체계'     → Big5 C에서 제거  (RIASEC C에만 유지)
-//   '수립'     → Big5 C에서 제거  (RIASEC C에만 유지)
-//
-// 불가피하게 유지되는 중복 9개는 방법 2(정규화)로 영향 희석:
-//   '창의'(A↔O), '의료·복지·보건·돌봄·공감·사회적'(S↔A), '교육·커뮤니티'(S↔E)
-// ══════════════════════════════════════════════════════════════
-
 const riasecKeywords = {
   R: ['설계', '하드웨어', '인프라', '로봇', '센서', '제어', '회로', '엔지니어링', '제조', '자동화'],
   I: ['양자', '알고리즘', '연구', '탐구', '시뮬레이션', '모델링', '실험', '데이터 과학', '최적화', '분석'],
@@ -42,11 +29,14 @@ const big5Keywords = {
 
 function calcScore(desc, keywords) {
   if (!keywords || keywords.length === 0) return 0;
+
   const maxPerKeyword = 3;
+
   const rawScore = keywords.reduce((sum, kw) => {
     const count = desc.split(kw).length - 1;
     return sum + Math.min(count, maxPerKeyword);
   }, 0);
+
   const maxPossible = keywords.length * maxPerKeyword;
   return (rawScore / maxPossible) * 100;
 }
@@ -55,6 +45,7 @@ app.post('/recommend', (req, res) => {
   const { name, dob, country, ability, riasec, big5 } = req.body;
 
   const birthYear = parseInt(dob, 10);
+
   if (Number.isNaN(birthYear) || birthYear < 1900 || birthYear > 2100) {
     return res.status(400).json({
       error: '출생연도 형식이 올바르지 않습니다. 예) 2010 형식으로 입력해 주세요.'
@@ -68,14 +59,18 @@ app.post('/recommend', (req, res) => {
   } else if (ability === '중') {
     addYear = 26;
   } else {
-    addYear = 22; // '하'
+    addYear = 22;
   }
 
   const year = birthYear + addYear;
   const period = `${Math.floor(year / 10) * 10}년대`;
+
   const candidates = jobData.filter(
-    row => row['국가'] === country && row['시기'] === period && row['직업등급'] === ability
+    row => row['국가'] === country &&
+           row['시기'] === period &&
+           row['직업등급'] === ability
   );
+
   const candidateCount = candidates.length;
 
   if (candidateCount === 0) {
@@ -105,19 +100,32 @@ app.post('/recommend', (req, res) => {
   const allZero = candidates.every(row => row.riasec_raw === 0 && row.big5_raw === 0);
 
   candidates.sort(
-    (a, b) => b.final_score - a.final_score || parseInt(a['연봉순위'], 10) - parseInt(b['연봉순위'], 10)
+    (a, b) => b.final_score - a.final_score ||
+      parseInt(a['연봉순위'], 10) - parseInt(b['연봉순위'], 10)
   );
+
   const best = candidates[0];
 
   const zeroScoreNote = allZero
-    ? '\n※ 성향 키워드 매칭 결과가 없어 연봉순위 기준으로 최상위 직업을 추천하였습니다.'
+    ? '성향 키워드 매칭 결과가 없어 연봉순위 기준으로 최상위 직업을 추천하였습니다.'
     : '';
 
-  const text = `<div style="font-size:28px;font-weight:bold;color:#2d2250;line-height:1.3;word-break:break-all;overflow-x:hidden;max-width:100%;box-sizing:border-box;margin:0;padding:0;"><p style="font-size:34px;font-weight:900;margin:0 0 4px 0;">1. 출력 결과</p><p style="margin:8px 0 0 0;"><b>성명:</b> ${name}</p><p style="margin:0;"><b>국가:</b> ${country} / <b>취업시기:</b> ${period}</p><p style="margin:0;"><b>추천직업:</b> ${best['추천직업']}</p><p style="margin:8px 0 0 0;"><b>연봉순위:</b> ${period} ${country}, "지능/성적/노력"을 고려한 20개 해당 직종 중 ${best['연봉순위']}위에 해당됩니다.</p><p style="margin:0;"><b>직업해설:</b> ${best['직업해설']}</p><p style="margin:8px 0 0 0;"><b>핵심 전문지식:</b> ${best['핵심 전문 지식']}</p><p style="margin:0;"><b>추천 학과/전공:</b> ${best['추천 학과/전공']}</p><p style="margin:0 0 8px 0;"><b>준비 기간:</b> ${best['준비 기간']}</p><p style="font-size:34px;font-weight:900;margin:8px 0 4px 0;">2. 매칭 분석</p><p style="margin:8px 0 0 0;"><b>조건 필터링:</b> 국가, 시기, 직업등급 데이터를 기반으로 1차 후보군 ${candidateCount}개를 추출하였습니다.</p><p style="margin:0;"><b>성향 점수화:</b> 직업흥미유형(RIASEC) 적합도 ${best.riasec_score.toFixed(1)}점, 개인성향(Big5) 적합도 ${best.big5_score.toFixed(1)}점을 60:40 가중평균하여 최종 적합도 ${best.final_score}점을 산출하였습니다.</p><p style="margin:0;"><b>최종 선택:</b> 적합도 점수와 연봉순위를 종합하여 최적의 직업 1종을 선정하였습니다.${zeroScoreNote}</p></div>`;
-
-  const buttons = `<div style="margin-top:0;padding:0;background:#f8f9fa;border-radius:10px;border:1px solid #dee2e6;width:100%;max-width:100%;box-sizing:border-box;overflow-x:hidden;"><p style="margin:0;padding:8px 12px;font-size:26px;font-weight:bold;color:#333;line-height:1.3;">💡 더 궁금한 점은, 아래의 AI 중 본인이 가입한 모델 클릭해서 문의.</p><div style="display:flex;flex-direction:column;gap:0;width:100%;box-sizing:border-box;"><a href="https://chat.openai.com" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#10a37f;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">💬 ChatGPT &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">창작 · 글쓰기 · 대화</span></button></a><a href="https://gemini.google.com" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#4285f4;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">✨ Gemini &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">구글 연동 · 코딩에 강함</span></button></a><a href="https://claude.ai" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#d97706;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">🤖 Claude &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">심층 분석 · 문서 작성</span></button></a><a href="https://www.perplexity.ai" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#6366f1;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">🔎 Perplexity &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">정보검색 · 최신 웹 요약</span></button></a><a href="https://grok.com" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#1d9bf0;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">⚡ Grok &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">심층 질문 · 뉴스 분석에 강함</span></button></a><a href="https://chat.deepseek.com" target="_blank" style="text-decoration:none;display:block;width:100%;box-sizing:border-box;"><button style="width:100%;padding:8px 16px;font-size:28px;font-weight:bold;background:#e53e3e;color:white;border:none;border-radius:0;cursor:pointer;text-align:left;box-sizing:border-box;margin:0;">🐋 DeepSeek &nbsp;|&nbsp; <span style="font-weight:normal;font-size:26px;">무료 · 코딩 · 논리 추론</span></button></a></div></div>`;
-
-  res.json({ text, buttons });
+  res.json({
+    name,
+    country,
+    period,
+    job: best['추천직업'] || '',
+    salaryRank: best['연봉순위'] || '',
+    description: best['직업해설'] || '',
+    knowledge: best['핵심 전문 지식'] || '',
+    major: best['추천 학과/전공'] || '',
+    prepPeriod: best['준비 기간'] || '',
+    candidateCount,
+    riasecScore: best.riasec_score != null ? best.riasec_score.toFixed(1) : '0.0',
+    big5Score: best.big5_score != null ? best.big5_score.toFixed(1) : '0.0',
+    finalScore: best.final_score != null ? best.final_score.toFixed(1) : '0.0',
+    zeroScoreNote
+  });
 });
 
 // ✅ 로컬: 기본 3003 유지
