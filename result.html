@@ -92,17 +92,28 @@
         <h2 class="highlight-box process-box">추천 산출 과정</h2>
         <section class="content-section">
           <div class="process-list">
+            
             <div class="process-item">
               <span class="process-item-label">조건 필터링</span>
               <p class="process-item-text">국가, 시기, 학업 계획 데이터를 기반으로 1차 후보군 20개를 추출하였습니다.</p>
             </div>
+
             <div class="process-item">
               <span class="process-item-label">성향 점수화</span>
               <p class="process-item-text">직업흥미유형(RIASEC) 적합도 ${data.riasecScore}점과 개인성향(Big5) 적합도 ${data.big5Score}점을 가중평균하여 최종 점수를 산출하였습니다.</p>
             </div>
+
+            <div class="process-item">
+              <span class="process-item-label">최종 선택</span>
+              <p class="process-item-text">
+                적합도 점수가 높은 직업 중 연봉순위가 높은 최적의 직업 1종을 선정하였습니다.
+              </p>
+            </div>
+
           </div>
         </section>`;
     }
   </script>
+
 </body>
 </html>
