@@ -113,10 +113,8 @@ button {
 
 .result-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
+  justify-content: center; /* 자식 요소를 수평 중앙으로 정렬 */
+  width: 100%;
 }
 
 .info-grid {
@@ -278,10 +276,10 @@ button {
     line-height: 1.75;
   }
 
-  .center-title{
-    text-align:center; 
-  }
-
+.center-title {
+  text-align: center !important;
+  width: 100%;
+}
   .page{
     display:flex;
     justify-content:center;

@@ -49,7 +49,6 @@
     <div class="card result-card">
       <div class="result-header">
         <h1 class="page-title center-title">미래 직업 추천 결과</h1>
-        <button type="button" class="sub-btn" onclick="location.href='index.html'">다시 입력하기</button>
       </div>
       <div id="resultContent"></div>
     </div>
@@ -89,10 +88,11 @@
           <h2 class="section-title">준비 기간</h2>
           <p class="section-text">${data.prepPeriod || ''}</p>
         </section>
+
         <h2 class="highlight-box process-box">추천 산출 과정</h2>
+
         <section class="content-section">
           <div class="process-list">
-            
             <div class="process-item">
               <span class="process-item-label">조건 필터링</span>
               <p class="process-item-text">국가, 시기, 학업 계획 데이터를 기반으로 1차 후보군 20개를 추출하였습니다.</p>
@@ -109,6 +109,8 @@
                 적합도 점수가 높은 직업 중 연봉순위가 높은 최적의 직업 1종을 선정하였습니다.
               </p>
             </div>
+
+        <button type="button" class="sub-btn" onclick="location.href='index.html'">다시 입력하기</button>
 
           </div>
         </section>`;
