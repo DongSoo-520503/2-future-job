@@ -22,7 +22,7 @@
 
     .page {
       min-height: 100vh;
-      padding: 5px 14px 44px;           /* 상하 더 줄임 */
+      padding: 3px 14px 25px;           /* 상하 더 줄임 */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -47,13 +47,13 @@
 
     .form-grid {
       display: grid;
-      gap: 9px;                          /* 11 → 9 */
+      gap: 5px;                          /* 7 → 5 */
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 4px;                          /* 5 → 4 */
+      gap: 2px;                          /* 3 → 2 */
     }
 
     .field label {
@@ -64,7 +64,7 @@
 
     input,
     select {
-      height: 38px;                      /* 40 → 38 */
+      height: 32px;                      /* 36 → 32 */
       padding: 0 14px;
       font-size: 1rem;
       border: 1px solid #d1d5db;
@@ -87,7 +87,7 @@
       background: #3b82f6;
       border: none;
       border-radius: 10px;
-      margin-top: 9px;                   /* 11 → 9 */
+      margin-top: 5px;                   /* 7 → 5 */
       cursor: pointer;
     }
 
@@ -104,7 +104,7 @@
 
     @media (max-width: 430px) {
       .page {
-        padding: 4px 12px 44px;
+        padding: 2px 12px 25px;
       }
       .card.form-card {
         padding: 20px 16px 28px;
@@ -114,14 +114,14 @@
         margin-bottom: 24px;
       }
       .form-grid {
-        gap: 8px;
+        gap: 4px;
       }
       input, select {
-        height: 36px;
+        height: 30px;
       }
       .primary-btn {
         height: 52px;
-        margin-top: 8px;
+        margin-top: 4px;
       }
     }
   </style>
