@@ -2,97 +2,136 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>미래 직업 추천</title>
   <link rel="stylesheet" href="style.css">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     html, body {
       height: 100%;
       overflow: hidden;
+      background: #f9fafb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     .page {
-      padding-top: 6px !important;
-      padding-bottom: 6px !important;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px 14px;
     }
 
     .card.form-card {
-      padding-top: 8px !important;
-      padding-bottom: 8px !important;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 24px 18px 28px;
     }
 
     .page-title.center-title {
-      margin-top: 0 !important;
-      margin-bottom: 6px !important;
+      font-size: 1.85rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 28px;
+      color: #111827;
     }
 
     .form-grid {
-      gap: 6px !important;
+      display: grid;
+      gap: 20px;
     }
 
     .field {
-      gap: 3px !important;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .field label {
-      margin: 0 !important;
-      line-height: 1.15 !important;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #374151;
     }
 
     input,
     select {
-      min-height: 40px !important;
-      height: 40px !important;
-      padding-top: 8px !important;
-      padding-bottom: 8px !important;
+      height: 50px;
+      padding: 0 14px;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #f9fafb;
+      transition: border-color 0.15s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
 
     .primary-btn {
-      min-height: 42px !important;
-      height: 42px !important;
-      margin-top: 4px !important;
-      margin-bottom: 0 !important;
+      height: 54px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: #3b82f6;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #2563eb;
     }
 
     .form-message {
-      margin-top: 4px !important;
-      margin-bottom: 0 !important;
-      min-height: 0 !important;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #ef4444;
+      text-align: center;
     }
 
     @media (max-width: 430px) {
       .page {
-        padding-top: 4px !important;
-        padding-bottom: 4px !important;
+        padding: 12px 10px;
       }
 
       .card.form-card {
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
+        padding: 20px 16px 24px;
+        border-radius: 12px;
       }
 
       .page-title.center-title {
-        margin-bottom: 5px !important;
+        font-size: 1.65rem;
+        margin-bottom: 24px;
       }
 
       .form-grid {
-        gap: 5px !important;
+        gap: 18px;
       }
 
-      .field {
-        gap: 2px !important;
-      }
-
-      input,
-      select {
-        min-height: 38px !important;
-        height: 38px !important;
+      input, select {
+        height: 48px;
+        font-size: 0.97rem;
       }
 
       .primary-btn {
-        min-height: 40px !important;
-        height: 40px !important;
+        height: 52px;
+        font-size: 1.05rem;
       }
     }
   </style>
@@ -117,28 +156,28 @@
         <div class="field">
           <label for="country">국가</label>
           <select id="country" name="country">
-                    <option value="대한민국">대한민국</option>
-                    <option value="미국">미국</option>
-                    <option value="중국">중국</option>
-                    <option value="일본">일본</option>
-                    <option value="러시아">러시아</option>
-                    <option value="인도">인도</option>
-                    <option value="독일">독일</option>
-                    <option value="영국">영국</option>
-                    <option value="프랑스">프랑스</option>
-                    <option value="이탈리아">이탈리아</option>
-                    <option value="캐나다">캐나다</option>
-                    <option value="호주">호주</option>
-                    <option value="멕시코">멕시코</option>
-                    <option value="베트남">베트남</option>
-                    <option value="브라질">브라질</option>
-                    <option value="사우디아라비아">사우디아라비아</option>
-                    <option value="스위스">스위스</option>
-                    <option value="싱가포르">싱가포르</option>
-                    <option value="이스라엘">이스라엘</option>
-                    <option value="인도네시아">인도네시아</option>
-                    <option value="나이지리아">나이지리아</option>
-                    <option value="남아프리카공화국">남아프리카공화국</option>
+            <option value="대한민국">대한민국</option>
+            <option value="미국">미국</option>
+            <option value="중국">중국</option>
+            <option value="일본">일본</option>
+            <option value="러시아">러시아</option>
+            <option value="인도">인도</option>
+            <option value="독일">독일</option>
+            <option value="영국">영국</option>
+            <option value="프랑스">프랑스</option>
+            <option value="이탈리아">이탈리아</option>
+            <option value="캐나다">캐나다</option>
+            <option value="호주">호주</option>
+            <option value="멕시코">멕시코</option>
+            <option value="베트남">베트남</option>
+            <option value="브라질">브라질</option>
+            <option value="사우디아라비아">사우디아라비아</option>
+            <option value="스위스">스위스</option>
+            <option value="싱가포르">싱가포르</option>
+            <option value="이스라엘">이스라엘</option>
+            <option value="인도네시아">인도네시아</option>
+            <option value="나이지리아">나이지리아</option>
+            <option value="남아프리카공화국">남아프리카공화국</option>
           </select>
         </div>
 
@@ -154,23 +193,23 @@
         <div class="field">
           <label for="riasec">직업 흥미 유형 (RIASEC)</label>
           <select id="riasec" name="riasec">
-                    <option value="R">만들고 조작하는 걸 좋아해요—기계·컴퓨터·도구를 직접 다루거나 만드는 것이 재미있는 편이에요</option>
-                    <option value="I"> 파고들고 연구하는 걸 좋아해요—왜 그런지 원리를 찾고, 데이터나 과학적 사실을 탐구하는 편이에요</option>
-                    <option value="A">만들고 표현하는 걸 좋아해요—그림·영상·디자인·글쓰기 등 새로운 것을 창작하는 편이에요</option>
-                    <option value="S">돕고 함께하는 걸 좋아해요—사람들과 어울리고 돌보고 가르치는 일이 보람 있는 편이에요</option>
-                    <option value="E">이끌고 도전하는 걸 좋아해요—목표를 세우고 사람들을 설득하거나 이끄는 것이 잘 맞는 편이에요</option>
-                    <option value="C">정리하고 꼼꼼히 관리하는 걸 좋아해요—규칙에 따라 정확하게 기록하고 체계적으로 일하는 편이에요</option>
+            <option value="R">만들고 조작하는 걸 좋아해요—기계·컴퓨터·도구를 직접 다루거나 만드는 것이 재미있는 편이에요</option>
+            <option value="I">파고들고 연구하는 걸 좋아해요—왜 그런지 원리를 찾고, 데이터나 과학적 사실을 탐구하는 편이에요</option>
+            <option value="A">만들고 표현하는 걸 좋아해요—그림·영상·디자인·글쓰기 등 새로운 것을 창작하는 편이에요</option>
+            <option value="S">돕고 함께하는 걸 좋아해요—사람들과 어울리고 돌보고 가르치는 일이 보람 있는 편이에요</option>
+            <option value="E">이끌고 도전하는 걸 좋아해요—목표를 세우고 사람들을 설득하거나 이끄는 것이 잘 맞는 편이에요</option>
+            <option value="C">정리하고 꼼꼼히 관리하는 걸 좋아해요—규칙에 따라 정확하게 기록하고 체계적으로 일하는 편이에요</option>
           </select>
         </div>
 
         <div class="field">
           <label for="big5">개인성향 (Big5)</label>
           <select id="big5" name="big5">
-                    <option value="O">새로운 것에 호기심이 많아요—새 아이디어나 변화를 즐기고 상상력이 풍부한 편이에요</option>
-                    <option value="C">계획적이고 꼼꼼한 편이에요—목표를 세우고 끝까지 책임감 있게 해내는 편이에요</option>
-                    <option value="E">사람들과 어울리는 걸 좋아해요—여럿이 함께하는 환경에서 활발하게 활동하는 편이에요</option>
-                    <option value="A">배려심이 많고 협조적이에요—다른 사람을 믿고 돕는 것이 자연스러운 편이에요</option>
-                    <option value="N">안전과 위험에 민감한 편이에요—작은 위험도 미리 감지하고 대비하려는 신중한 편이에요</option>
+            <option value="O">새로운 것에 호기심이 많아요—새 아이디어나 변화를 즐기고 상상력이 풍부한 편이에요</option>
+            <option value="C">계획적이고 꼼꼼한 편이에요—목표를 세우고 끝까지 책임감 있게 해내는 편이에요</option>
+            <option value="E">사람들과 어울리는 걸 좋아해요—여럿이 함께하는 환경에서 활발하게 활동하는 편이에요</option>
+            <option value="A">배려심이 많고 협조적이에요—다른 사람을 믿고 돕는 것이 자연스러운 편이에요</option>
+            <option value="N">안전과 위험에 민감한 편이에요—작은 위험도 미리 감지하고 대비하려는 신중한 편이에요</option>
           </select>
         </div>
 
