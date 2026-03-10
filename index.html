@@ -17,15 +17,15 @@
       height: 100%;
       background: #f9fafb;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+      -webkit-overflow-scrolling: touch;
     }
 
     .page {
-      min-height: 100vh;                  /* ← 핵심: 최소 전체 화면 높이 */
-      padding: 16px 14px 80px;            /* 하단에 여유 → 버튼 잘 보이게 */
+      min-height: 100vh;
+      padding: 6px 14px 55px;           /* 상하 더 줄임 */
       display: flex;
       flex-direction: column;
-      align-items: center;                /* 가로 중앙 */
+      align-items: center;
     }
 
     .card.form-card {
@@ -34,7 +34,7 @@
       background: white;
       border-radius: 16px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      padding: 24px 18px 32px;            /* 아래쪽 패딩 늘림 */
+      padding: 24px 18px 32px;
     }
 
     .page-title.center-title {
@@ -47,13 +47,13 @@
 
     .form-grid {
       display: grid;
-      gap: 20px;
+      gap: 11px;                         /* 13 → 11 */
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;                          /* 6 → 5 */
     }
 
     .field label {
@@ -64,7 +64,7 @@
 
     input,
     select {
-      height: 50px;
+      height: 40px;                      /* 42 → 40 */
       padding: 0 14px;
       font-size: 1rem;
       border: 1px solid #d1d5db;
@@ -87,7 +87,7 @@
       background: #3b82f6;
       border: none;
       border-radius: 10px;
-      margin-top: 24px;                   /* 위쪽 여백 확보 */
+      margin-top: 11px;                  /* 14 → 11 */
       cursor: pointer;
     }
 
@@ -104,22 +104,24 @@
 
     @media (max-width: 430px) {
       .page {
-        padding: 14px 12px 100px;         /* 작은 화면에서 더 아래 여유 */
+        padding: 5px 12px 55px;
       }
       .card.form-card {
         padding: 20px 16px 28px;
-        border-radius: 12px;
       }
       .page-title.center-title {
         font-size: 1.7rem;
         margin-bottom: 24px;
       }
       .form-grid {
-        gap: 18px;
+        gap: 10px;
+      }
+      input, select {
+        height: 38px;
       }
       .primary-btn {
         height: 52px;
-        font-size: 1.05rem;
+        margin-top: 10px;
       }
     }
   </style>
