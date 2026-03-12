@@ -13,15 +13,13 @@
     }
     .info-item { min-width: 0; }
 
-    /* 1. 추천직업 박스 상하 폭 및 간격 축소 */
     .highlight-box.process-box {
       display: flex;
       flex-direction: column;
-      gap: 5px; 
+      gap: 5px;
       padding: 10px 15px;
     }
 
-    /* 2 & 4. 추천직업 글자 크기 축소 및 짙은 푸른색 설정 */
     .job-title {
       font-size: 1.1rem;
       color: #1e3a8a;
@@ -29,7 +27,6 @@
       margin: 0;
     }
 
-    /* 3. 추천 산출 과정 글자 크기 축소 */
     h2.highlight-box.process-box {
       font-size: 1.1rem;
       margin-top: 20px;
@@ -66,7 +63,7 @@
           <div class="info-item"><span class="info-label">성명</span><span class="info-value">${data.name}</span></div>
           <div class="info-item"><span class="info-label">국가</span><span class="info-value">${data.country}</span></div>
           <div class="info-item"><span class="info-label">취업 시기</span><span class="info-value">${data.period}</span></div>
-          <div class="info-item"><span class="info-label">연봉 순위</span><span class="info-value">${data.salaryRank}위</span></div>
+          <div class="info-item"><span class="info-label">연봉 순위 : 1차 후보군 ${data.candidateCount}개중</span><span class="info-value">${data.salaryRank}위</span></div>
         </section>
         <section class="highlight-box process-box">
           <div class="highlight-label">추천 직업</div>
@@ -95,23 +92,21 @@
           <div class="process-list">
             <div class="process-item">
               <span class="process-item-label">조건 필터링</span>
-              <p class="process-item-text">국가, 시기, 학업 계획 데이터를 기반으로 1차 후보군 20개를 추출하였습니다.</p>
+              <p class="process-item-text">국가, 시기, 학업 계획 데이터를 기반으로 1차 후보군 ${data.candidateCount}개를 추출하였습니다.</p>
             </div>
 
             <div class="process-item">
               <span class="process-item-label">성향 점수화</span>
-               직업흥미유형(RIASEC) 적합도 ${data.riasecScore}점과 개인성향(Big5) 적합도 ${data.big5Score}점을
-               60:40 가중평균하여 최종 적합도 ${data.finalScore}점을 산출하였습니다.</p>
+              <p class="process-item-text">직업흥미유형(RIASEC) 적합도 ${data.riasecScore}와 개인성향(Big5) 적합도 ${data.big5Score}를
+60:40 가중평균하여 최종 적합도 ${data.finalScore}를 산출하였습니다.</p>
             </div>
 
             <div class="process-item">
               <span class="process-item-label">최종 선택</span>
-              <p class="process-item-text">
-                최종 적합도 점수가 높은 직업 중, 연봉순위가 높은 최적의 직업 1종을 선정하였습니다.
-              </p>
+              <p class="process-item-text">최종 적합도 점수가 높은 직업 ${data.topCount}개 중, 연봉순위가 높은 최적의 직업 1종을 선정하였습니다.</p>
             </div>
 
-        <button type="button" class="sub-btn" onclick="location.href='index.html'">다시 입력하기</button>
+            <button type="button" class="sub-btn" onclick="location.href='index.html'">다시 입력하기</button>
 
           </div>
         </section>`;
